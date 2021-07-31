@@ -1,0 +1,68 @@
+﻿@page
+@model Blog_App_policy_permission.Pages.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Blog</h4>
+<hr />
+
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <div class="custom-file">
+                    <input asp-for="Image" class="custom-file-input" accept="img/*" required />
+                    <label class="custom-file-label">Choose file</label>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Blog.Title" class="control-label"></label>
+                <input asp-for="Blog.Title" class="form-control" />
+                <span asp-validation-for="Blog.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Blog.Content" class="control-label"></label>
+                <textarea asp-for="Blog.Content" class="form-control textarea" rows="8"></textarea>
+                <span asp-validation-for="Blog.Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Blog.Published" /> Publish Now ?
+                </label>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+  
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.textarea'))
+            .catch(error => {
+                console.error(error);
+            });
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

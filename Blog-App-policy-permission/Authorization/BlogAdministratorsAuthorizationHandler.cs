@@ -1,5 +1,6 @@
 ﻿using Blog_App_policy_permission.Authorization;
 using Blog_App_policy_permission.Data;
+using Blog_App_policy_permission.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System;
@@ -11,7 +12,7 @@ namespace BlogApp.Authorization
 {
     public class BlogAdministratorsAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement )
         {
             if (context.User == null)
             {

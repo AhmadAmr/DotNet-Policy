@@ -32,6 +32,7 @@ namespace Blog_App_policy_permission.Authorization
             {
                 var policy = new AuthorizationPolicyBuilder();
                 policy.AddRequirements(new PermissionRequirement(policyName));
+               
                 return Task.FromResult(policy.Build());
             }
 

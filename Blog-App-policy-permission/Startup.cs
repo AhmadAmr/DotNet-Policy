@@ -1,5 +1,6 @@
 using Blog_App_policy_permission.Authorization;
 using Blog_App_policy_permission.Data;
+using Blog_App_policy_permission.Services;
 using BlogApp.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -41,10 +42,17 @@ namespace Blog_App_policy_permission
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
-            
 
-            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-            services.AddScoped<IAuthorizationHandler, BlogOwnerAuthorizationHandler>();
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Permissions.Posts.Edit", policy =>
+            //        policy.Requirements.Add(new PermissionRequirement("Permissions.Posts.Edit")));
+            //});
+
+            services.AddTransient<BlogService>();
+            services.AddTransient<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+            services.AddTransient<IAuthorizationHandler, BlogOwnerAuthorizationHandler>();
+            services.AddScoped<IAuthorizationHandler, BlogAuthorizationHandler>();
             services.AddScoped<IAuthorizationHandler, BlogAdministratorsAuthorizationHandler>();
             services.Configure<SecurityStampValidatorOptions>(options =>
             {

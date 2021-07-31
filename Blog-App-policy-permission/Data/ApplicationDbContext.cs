@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Blog_App_policy_permission.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace Blog_App_policy_permission.Data
             : base(options)
         {
         }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<EditHistory> editHistories { get; set; }
     }
 }
