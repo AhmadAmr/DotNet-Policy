@@ -55,7 +55,40 @@
         </dd>
     </dl>
 </div>
+
+@if (Model.Blog.Status != BlogStatus.Approved)
+{
+    @if ((await AuthorizationService.AuthorizeAsync(
+ User, "Permissions.Posts.Approve")).Succeeded)
+    {
+        <form style="display:inline;" method="post">
+            <input type="hidden" name="id" value="@Model.Blog.Id" />
+            <input type="hidden" name="status" value="@BlogStatus.Approved" />
+            <button type="submit" class="btn btn-xs btn-success">Approve</button>
+        </form>
+    }
+}
+
+@if (Model.Blog.Status != BlogStatus.Rejected)
+{
+    @if ((await AuthorizationService.AuthorizeAsync(
+ User, "Permissions.Posts.Reject")).Succeeded)
+    {
+        <form style="display:inline;" method="post">
+            <input type="hidden" name="id" value="@Model.Blog.Id" />
+            <input type="hidden" name="status" value="@BlogStatus.Rejected" />
+            <button type="submit" class="btn btn-xs btn-danger">Reject</button>
+        </form>
+    }
+}
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Blog.Id">Edit</a> |
+    @if ((await AuthorizationService.AuthorizeAsync(
+     User, Model.Blog,
+     "Permissions.Posts.Edit")).Succeeded)
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Blog.Id">Edit</a>
+        <text> | </text>
+    }
     <a asp-page="./Index">Back to List</a>
 </div>

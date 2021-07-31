@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Blog_App_policy_permission.Data;
 using Blog_App_policy_permission.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog_App_policy_permission.Pages.Blog
 {
+    [Authorize("Permissions.Posts.Delete")]
     public class DeleteModel : PageModel
     {
         private readonly Blog_App_policy_permission.Data.ApplicationDbContext _context;

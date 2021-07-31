@@ -4,4 +4,7 @@
 @namespace Blog_App_policy_permission.Pages
 @using System.Globalization
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+

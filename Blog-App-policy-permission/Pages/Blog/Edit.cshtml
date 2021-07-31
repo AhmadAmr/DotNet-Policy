@@ -11,15 +11,15 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Blog.Id" />
-
+            <input type="hidden" asp-for="Blog.Image"  />
             <div class="form-group">
                 <label asp-for="Image"></label>
                 <div class="custom-file">
-                    <input asp-for="Image" class="custom-file-input"  />
-                    <label class="custom-file-label">@Model.Image</label>
+                    <input asp-for="Image" class="custom-file-input" accept="img/*" />
+                    <label class="custom-file-label">@((Model.Blog.Image).Substring((Model.Blog.Image.Length)-(Model.Blog.Image.Length -37) ))</label>
                 </div>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
                 </label>
             </div>
 
-           
+
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
