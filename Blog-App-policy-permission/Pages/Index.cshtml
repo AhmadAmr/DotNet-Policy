@@ -1,7 +1,66 @@
 ﻿@page
-@model HelloModel
+
+@model IndexModel
 @{
+    ViewData["Title"] = "Home page";
+}
+@{
+    Layout = "/Views/Shared/_HomeLayout.cshtml";
 }
 
-<h1>hello</h1>
-<h4>@DateTime.Now</h4>
+<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Clean Blog</h1>
+                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="my-5">
+    <div class="container">
+        <!--Section: Content-->
+        <section class="text-center">
+            <h4 class="mb-5"><strong>Latest posts</strong></h4>
+
+
+            <div class="row">
+
+                @{int i = 0; }
+                @foreach (var article in Model.Blog)
+                {
+                    if (i != 0 && i % 3 == 0)
+                    {
+                    @:</div>
+                    @:<div class="row">
+                    }
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div class="card">
+                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img src="~/img/@article.Image" class="img-fluid" height="400" />
+                                <a href="#!">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@article.Title</h5>
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's content.@article.Author.UserName
+                                </p>
+                                <a asp-page="/Detail" asp-route-id="@article.Id" class="btn btn-primary">Read</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    i++;
+                }
+            </div>
+
+        </section>
+    </div>
+</main>
